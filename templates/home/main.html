@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <ul>
+        {% if closet_list %}
+            {% for closet in closet_list %}
+                <li>{{ closet.category }}</li>
+            {% endfor %}
+        {% endif %}
+    </ul>
+
+{% endblock %}

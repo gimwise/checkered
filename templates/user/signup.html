@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<form method="post" action=>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">회원가입</button>
+    <div class="signup-login-div">
+        <a class="btn btn-primary" href="{% url "user:login" %}">로그인</a>
+    </div>
+</form>
+{% endblock %}
