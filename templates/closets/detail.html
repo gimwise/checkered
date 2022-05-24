@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<img src="{{ closet.photo.url }}">
+<h5>{{ closet.cname }}</h5>
+<p>{{ closet.category.category_name }}</p>
+<p>{{ closet.detail }}</p>
+<a href="{% url 'closets:update' pk=closet.id %}">수정하기</a>
+{% endblock %}

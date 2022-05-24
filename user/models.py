@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.validators import UnicodeUsernameValidator
 import uuid
+from checkered_django import settings
 from django.utils import timezone
 
 
@@ -39,3 +40,11 @@ class User(AbstractUser):
                                default=0
                                )
     REQUIRED_FIELDS = ['nickname', 'email', 'auth']
+
+
+class Follow(models.Model):
+    class Meta:
+        unique_together = ('user', 'following')
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    following = models.ForeignKey(User, on_delete=models.CASCADE, related_name='following')

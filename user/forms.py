@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, SetPasswordForm, UserCreationForm, UsernameField, UserChangeForm, PasswordChangeForm
 from django.contrib.auth import get_user_model
-from .models import User
+from .models import *
 
 class UserForm(UserCreationForm):
     username = UsernameField(
@@ -53,4 +53,11 @@ class UserForm(UserCreationForm):
         fields = [
             'username', 'password1', 'password2', 'nickname', 'email',
             'auth',
+        ]
+
+class FollowForm(forms.ModelForm):
+    class Meta :
+        model = Follow
+        fields = [
+            'following'
         ]

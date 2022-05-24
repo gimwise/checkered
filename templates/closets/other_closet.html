@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    {% if closet %}
+        {% for c in closet %}
+        <div class="card" style="width:15rem;">
+            <img src="{{ c.photo.url }}">
+            <div class="card-body">
+                <h5>{{ c.cname }}</h5>
+                <p>{{ c.id }}</p>
+                <p>{{ c.category.category_name }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>등록된 옷이 없습니다.</p>
+    {% endif %}
+{% endblock %}

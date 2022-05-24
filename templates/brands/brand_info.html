@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <form method="POST" action="{% url 'brands:info' pk=brand.admin %}" class="post-form" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">수정하기</button>
+    </form>
+{% endblock %}

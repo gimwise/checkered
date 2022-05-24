@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>브랜드 관리하기</h1>
+    <table class="table">
+        <tbody>
+        {% if request_list %}
+            {% for r in request_list %}
+                <tr class="request_item">
+                    <td>{{ r.name }}</td>
+                    <td>{{ r.admin }}</td>
+                    {% if r.admit == True %}
+                    <td>
+                        <a href=""><button type="button" class="btn btn-disable">완료</button></a>
+                    </td>
+                    {% else %}
+                        <td>
+                            <form method="POST" action="{% url 'administrator:accept' pk=r.admin.id %}">
+                                {% csrf_token %}
+                                <a href="{% url 'administrator:accept' pk=r.admin_id %}"><button type="button" class="btn btn-secondary">수락</button></a>
+                            </form>
+                        </td>
+                        <td>
+                            <a href=""><button type="button" class="btn btn-secondary">거절</button></a>
+                        </td>
+                    {% endif %}
+
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td>카테고리가 없습니다.</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+{% endblock %}

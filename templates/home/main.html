@@ -1,12 +1,54 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-    <ul>
-        {% if closet_list %}
-            {% for closet in closet_list %}
-                <li>{{ closet.category }}</li>
-            {% endfor %}
-        {% endif %}
-    </ul>
+<div class="closet-container">
+    {% if user.is_authenticated %}
+        {% if user.auth == 0 %}
+            {% if user.is_superuser == False %}
+                <div class="btns-group">
+                    <a class="btn btn-secondary" href="{% url 'closets:new' %}">옷 추가하기</a>
+                    <a class="btn btn-secondary" href="{% url 'closets:category' %}">카테고리 보기</a>
+                    <a class="btn btn-secondary" href="{% url 'closets:u_list' %}">다른 사용자 옷장 구경하기</a>
+                    <a class="btn btn-secondary" href="{% url 'brands:brand_list' %}">브랜드 모아보기</a>
+                </div>
+                <div class="closet-group">
+                    {% for closet in closet_list %}
+                        <div class="card" style="width:15rem;">
+                            <img src="{{ closet.photo.url }}">
+                            <div class="card-body">
+                                <h5>{{ closet.cname }}</h5>
+                                <p>{{ closet.category.category_name }}</p>
+                                <p>{{ closet.detail }}</p>
+                                <a class="btn btn-warning" href="{% url 'closets:update' pk=closet.id %}">수정하기</a>
+                                <form method="POST" action="{% url 'closets:delete' pk=closet.id %}">
+                                    {% csrf_token %}
+                                    <a href="{% url 'closets:delete' pk=closet.id %}"><button type="button" class="btn btn-secondary">삭제</button></a>
+                                </form>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% if user.is_superuser == True %}
+                <div class="btns-group">
+                    <a class="btn btn-secondary" href="{% url 'administrator:request_admit' %}">브랜드 등록 요청 관리</a>
+                    <a class="btn btn-secondary" href="{% url 'administrator:user_list' %}">사용자 관리</a>
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="btns-group">
+                {% if user.brand.admit == True %}
+                    <div class="btn btn-warning">브랜드 등록 완료</div>
+                {% else %}
+                    <a class="btn btn-secondary" href="{% url 'brands:request' %}">브랜드 등록 요청</a>
+                {% endif %}
 
+                <a class="btn btn-secondary" href="{% url 'brands:info' pk=user.brand.admin %}">브랜드 정보</a>
+            </div>
+        {% endif %}
+
+
+        {% endif %}
+
+</div>
 {% endblock %}

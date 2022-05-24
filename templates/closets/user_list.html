@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>사용자 모아보기</h1>
+    <a class="btn btn-secondary" href="{% url 'user:follower' %}">나를 팔로우하는 사람 보러가기</a>
+    <table class="table">
+        <tbody>
+        {% if user_list %}
+            {% for u in user_list %}
+                <tr class="category_item">
+                    <td>{{ u }}</td>
+                    <td>
+                        <a class="btn btn-warning" href="{% url 'closets:other_closet' pk=u.id %}">옷장 보기</a>
+                    </td>
+                    <td>
+                        <form method="POST" action="{% url 'user:following' pk=u.id %}">
+                            {% csrf_token %}
+                                    <button class="btn btn-warning" type="submit">팔로우/해제</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td>카테고리가 없습니다.</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+{% endblock %}

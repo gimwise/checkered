@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>사용자 모아보기</h1>
+    <table class="table">
+        <tbody>
+        {% if user_list %}
+            {% for user in user_list %}
+                <tr class="category_item">
+                    <td>{{ user }}</td>
+                    <td>
+                        <form method="POST" action="{% url 'administrator:delete' pk=user.id %}">
+                            {% csrf_token %}
+                            <a href="{% url 'administrator:delete' pk=user.id %}"><button type="button" class="btn btn-secondary">삭제</button></a>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td>카테고리가 없습니다.</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+{% endblock %}

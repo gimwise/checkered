@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>브랜드 모아보기</h1>
+    <div class="closet-group">
+        {% for b in brand_list %}
+            <div class="card" style="width:15rem;">
+                <img src="{{ b.photo.url }}">
+                <div class="card-body">
+                    <h5>{{ b.name }}</h5>
+{#                    <p>{{ closet.category.category_name }}</p>#}
+                    <p>{{ b.description }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>나를 팔로우하는 사람 모아보기</h1>
+    <table class="table">
+        <tbody>
+        {% if f_list %}
+            {% for f in f_list %}
+                <tr class="category_item">
+                    <td>{{ f.user}}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td>카테고리가 없습니다.</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="closet-container">
+        {% for closet in closet_list %}
+            <div class="card" style="width:15rem;">
+                <img src="{{ closet.photo.url }}">
+                <div class="card-body">
+                    <h5>{{ closet.cname }}</h5>
+                    <p>{{ closet.id }}</p>
+                    <p>{{ closet.category.category_name }}</p>
+                    <a href="{% url 'closets:detail' pk=closet.id %}" class="btn btn-primary">Go Detail</a>
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+{% endblock %}

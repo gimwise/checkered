@@ -3,55 +3,136 @@
     padding:0;
 }
 
-@media all and (max-width: 768px){
-    body{
-        background-color: black;
-    }
-    ul{
-        list-style: none;
-    }
-    a{
-        text-decoration: none;
-        color:white;
-
-    }
-    a:hover{
-        color:white;
-    }
-    nav{
-        background-color:black;
-        display:flex;
-        align-items: center;
-
-        height: 3rem;
-    }
-    nav > ul{
-        display:flex;
-    }
-
-    #main-logo > h1{
-    }
+*{
+    color :white;
 }
 
-@media all and (min-width:768px){
-    body{
-        background-color: black;
-    }
-    body > *{
-        display:none;
-    }
-    #window-size-alert{
-        z-index : 100;
-        position: absolute;
-        width: 100vw;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    #window-size-alert > h1{
-        text-align: center;
-        color:goldenrod;
-    }
+tr{
+    text-align: center;
 }
 
+ul{
+    list-style: none;
+    margin : 0;
+}
+
+a{
+    text-decoration: none;
+    color :white;
+    cursor: pointer;
+}
+input{
+    width : 350px;
+    height: 40px;
+    color : black;
+}
+textarea{
+    color :black;
+}
+
+select{
+    width : 313px;
+    height: 40px;
+    color : black;
+}
+
+body{
+    margin : 0 auto;
+    width : 512px;
+    height : 100vh;
+}
+
+.container{
+    height: 100%;
+    overflow-y: hidden;
+    background-color: black;
+    display : flex;
+    flex-direction: column;
+    /*justify-content: center;*/
+    align-items: center;
+
+    padding-top : 50px;
+}
+
+/* Base */
+nav{
+    position: sticky;
+    background-color: black;
+    display : flex;
+    justify-content: space-around;
+    height : 50px;
+    align-items: center;
+}
+nav > ul{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+nav > ul > li{
+    margin : 0 10px;
+}
+
+
+/* Intro */
+.intro-container{
+}
+
+#intro-logo{
+    width : 20rem;
+    margin-bottom: 2rem;
+}
+
+/* Sign up */
+.signup-login-div{
+    display : flex;
+    justify-content: space-around;
+}
+
+/* Login */
+.login-container .post-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-container .post-form input{
+    width : 350px;
+    height: 40px;
+    margin : 10px;
+}
+
+.login-container .post-form button{
+    width : 100px;
+}
+
+/* main */
+.closet-container .btns-group{
+    display: flex;
+    flex-direction: column;
+}
+
+.closet-container .btns-group a{
+    margin : 10px 0;
+}
+
+.closet-container > .closet-group {
+    height : 500px;
+    overflow-y : scroll;
+}
+
+.closet-group::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
+
+.closet-container > .closet-group > .card {
+    margin : 20px 0;
+}
+
+/* card */
+.card > .card-body > h5,
+.card > .card-body > p{
+    color : black;
+}

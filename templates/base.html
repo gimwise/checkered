@@ -13,47 +13,56 @@
     <!-- css -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
-<body>
-<div id="window-size-alert" style='display:none;'>
-    <h1>현재는 모바일 버전만 지원됩니다!<br>창 크기를 줄어주세요</h1>
-</div>
+<body class="body">
 <nav>
     <div>
         <a href="{% url 'home:main' %}">
-            <h1>CHECKERED</h1>
+            <h5>CHECKERED</h5>
         </a>
     </div>
     <ul>
         {% if user.is_authenticated %}
-            <li>{{ user.username }} 님</li>
-            <li><a href="{% url 'user:logout' %}">로그아웃</a></li>
+            {% if user.is_superuser %}
+                <li>관리자 {{ user.username }} 님</li>
+                <li><a class="btn btn-light" href="{% url 'user:logout' %}">로그아웃</a></li>
+            {% endif %}
+            {% if user.auth == 1 and user.is_superuser == False %}
+                <li>브랜드 관리자 {{ user.username }} 님</li>
+                <li><a class="btn btn-light" href="{% url 'user:logout' %}">로그아웃</a></li>
+            {% elif user.auth == 0 and user.is_superuser == False %}
+                <li>일반 사용자 {{ user.username }} 님</li>
+                <li><a class="btn btn-light" href="{% url 'user:logout' %}">로그아웃</a></li>
+            {% endif %}
         {% else %}
             <li><a href="{% url 'user:login' %}">로그인</a></li>
         {% endif %}
-        <li><a href="{% url 'closets:c_list' %}">다른 옷장 구경하기</a></li>
+
     </ul>
 </nav>
+<div class="container">
 
 {% block content %}
 {% endblock %}
 
-<script>
-    const alertDiv = document.getElementById('window-size-alert');
+</div>
 
-    if (window.innerWidth >= 768){
-        document.body.style.backgroundColor = "Black";
-        alertDiv.style.display = 'flex';
-    }
-    window.addEventListener('resize', function(e) {
-        if (window.innerWidth >= 768) {
-            document.body.style.backgroundColor = "Black";
-            alertDiv.style.display = 'flex';
-        }
-        else{
-            document.body.style.backgroundColor = "Black";
-            alertDiv.style.display = 'none';
-        }
-    });
-</script>
+{#<script>#}
+{#    const alertDiv = document.getElementById('window-size-alert');#}
+{##}
+{#    if (window.innerWidth >= 768){#}
+{#        document.body.style.backgroundColor = "Black";#}
+{#        alertDiv.style.display = 'flex';#}
+{#    }#}
+{#    window.addEventListener('resize', function(e) {#}
+{#        if (window.innerWidth >= 768) {#}
+{#            document.body.style.backgroundColor = "Black";#}
+{#            alertDiv.style.display = 'flex';#}
+{#        }#}
+{#        else{#}
+{#            document.body.style.backgroundColor = "Black";#}
+{#            alertDiv.style.display = 'none';#}
+{#        }#}
+{#    });#}
+{#</script>#}
 </body>
 </html>
