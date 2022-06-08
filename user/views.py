@@ -3,23 +3,35 @@ from django.contrib.auth import login, authenticate
 from .forms import UserForm, FollowForm
 from .models import *
 from django.views import generic
+from closets.models import Closet
 
 # Create your views here.
+
+class IndexView(generic.ListView):
+    template_name = 'home/main.html'
+    context_object_name = "closet_list"
+
+    def get_queryset(self):
+        return Closet.objects.filter(user = self.request.user)
+
+class intro(generic.View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'home/intro.html')
 
 class SignupView(generic.CreateView):
     template_name = 'user/signup.html'
     success_url = '/user/login/'
     form_class = UserForm
 
-class FollowCreateView(generic.View):
-    form_class = FollowForm
-    success_url = '/closets/ours'
-
-    def form_valid(self, form):
-        obj = form.save(commit=False)
-        obj.user = self.request.user
-        obj.following = User.objects.get(admin=self.kwargs['pk'])
-        return super(FollowCreateView, self).form_valid(form)
+# class FollowCreateView(generic.View):
+#     form_class = FollowForm
+#     success_url = '/closets/ours'
+#
+#     def form_valid(self, form):
+#         obj = form.save(commit=False)
+#         obj.user = self.request.user
+#         obj.following = User.objects.get(admin=self.kwargs['pk'])
+#         return super(FollowCreateView, self).form_valid(form)
 
 class FollowView:
     def follow(request, pk):

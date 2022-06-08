@@ -19,10 +19,13 @@ class userListView(generic.ListView):
     def get_queryset(self):
         return User.objects.filter(~Q(id = self.request.user.id), auth = 0, is_superuser = False)
 
-def otherCloset(request, pk):
-    closet = Closet.objects.filter(user_id = pk)
-    context={'closet' : closet}
-    return render(request, 'closets/other_closet.html', context)
+class OtherClosetListView(generic.ListView):
+    template_name = 'closets/other_closet.html'
+    context_object_name = 'closet'
+
+    def get_queryset(self):
+        return Closet.objects.filter(user_id = self.kwargs['pk'])
+
 
 class closetUpdateView(generic.UpdateView):
     model = Closet
